@@ -6064,7 +6064,8 @@ while true do
             end
         end
         if PAD.IS_CONTROL_RELEASED(1, 323) and ENTITY.IS_ENTITY_PLAYING_ANIM(PLAYER.PLAYER_PED_ID(), "random@mugging3", "handsup_standing_base", 3) then
-            stopAnimation()
+            TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
+            PED.SET_ENABLE_HANDCUFFS(PLAYER.PLAYER_PED_ID(), false)
         end
     end
     util.yield()
