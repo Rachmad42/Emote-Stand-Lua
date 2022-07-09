@@ -5833,9 +5833,7 @@ local function playAnimation(animData)
     local playerPed = PLAYER.PLAYER_PED_ID()
     ChosenDict, ChosenAnimation, ename = table.unpack(animData)
     if PlayerHasProp then clearProps(PlayerProps) end
-
     if ChosenDict == "MaleScenario" then 
-        if InVehicle then return end
         if playerIsMale() then
             TASK.CLEAR_PED_TASKS_IMMEDIATELY(playerPed)
             TASK.TASK_START_SCENARIO_IN_PLACE(playerPed, ChosenAnimation, 0, true)
@@ -5844,7 +5842,6 @@ local function playAnimation(animData)
             util.toast("This emote is only for male characters")
         end return
     elseif ChosenDict == "ScenarioObject" then 
-        if InVehicle then return end
         local BehindPlayer = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(playerPed, 0.0, 0 - 0.5, -0.5);
         local PlayerHeading = ENTITY.GET_ENTITY_HEADING(playerPed)
         TASK.CLEAR_PED_TASKS_IMMEDIATELY(playerPed)
@@ -5852,7 +5849,6 @@ local function playAnimation(animData)
         IsInAnimation = true
         return
     elseif ChosenDict == "Scenario" then 
-        if InVehicle then return end
         TASK.CLEAR_PED_TASKS_IMMEDIATELY(playerPed)
         TASK.TASK_START_SCENARIO_IN_PLACE(playerPed, ChosenAnimation, 0, true)
         IsInAnimation = true
@@ -5920,8 +5916,10 @@ local function playAnimation(animData)
       end
 end
 local function stopAnimation()
-    TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
-    TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
+    if IsInAnimation then
+        TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
+        TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
+    end
     if PlayerHasProp then clearProps(PlayerProps) end
 end
 
@@ -6057,12 +6055,13 @@ while true do
                 TASK.TASK_PLAY_ANIM(PLAYER.PLAYER_PED_ID(), "random@mugging3", "handsup_standing_base", 3, 3, -1, 51, 0, false, false, false)
                 STREAMING.REMOVE_ANIM_DICT("random@mugging3")
                 PED.SET_ENABLE_HANDCUFFS(PLAYER.PLAYER_PED_ID(), true)
+                IsInAnimation = true
             end
         end
         if PAD.IS_CONTROL_RELEASED(1, 323) and ENTITY.IS_ENTITY_PLAYING_ANIM(PLAYER.PLAYER_PED_ID(), "random@mugging3", "handsup_standing_base", 3) then
-            TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
-            -- TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
             PED.SET_ENABLE_HANDCUFFS(PLAYER.PLAYER_PED_ID(), false)
+            stopAnimation()
+            IsInAnimation = false
         end
     end
     util.yield()
