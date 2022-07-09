@@ -5789,6 +5789,13 @@ local function loadAnimation(dict)
         util.yield()
     end
 end
+local function playerIsMale()
+    if ENTITY.GET_ENTITY_MODEL(PLAYER.PLAYER_PED_ID()) == util.joaat("mp_m_freemode_01") then
+        return true
+    else 
+        return false
+    end
+end
 local function addProps(model, bone, off1, off2, off3, rot1, rot2, rot3, localSave)
     local playerPed = PLAYER.PLAYER_PED_ID()
     local playerCoord = ENTITY.GET_ENTITY_COORDS(playerPed)
@@ -5829,7 +5836,7 @@ local function playAnimation(animData)
 
     if ChosenDict == "MaleScenario" then 
         if InVehicle then return end
-        if PED.IS_PED_MALE(playerPed) then
+        if playerIsMale() then
             TASK.CLEAR_PED_TASKS_IMMEDIATELY(playerPed)
             TASK.TASK_START_SCENARIO_IN_PLACE(playerPed, ChosenAnimation, 0, true)
             IsInAnimation = true
@@ -5999,18 +6006,7 @@ menu.action(menu.my_root(), "Random Dances", {"rdnc", "randomdances"}, "", funct
     STREAMING.REMOVE_ANIM_DICT(random.dict)
 end)
 
--- menu.action(menu.my_root(), "Stop Emote", {'stop', 'cencel'}, "Recommended to set hotey", function(on_click)
---     TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
---     TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
---     if PlayerHasProp then clearProps(PlayerProps) end
--- end)
-
 -- menu.action(menu.my_root(), "Check", {}, "", function(on_click)
---     if TASK.IS_PED_RUNNING_ARREST_TASK(PLAYER.PLAYER_PED_ID()) then
---         util.toast('true')
---     else
---         util.toast('false')
---     end
 -- end)
 
 OptMisc = menu.list(menu.my_root(), "Misc", {}, "", function(); end)
@@ -6064,7 +6060,8 @@ while true do
             end
         end
         if PAD.IS_CONTROL_RELEASED(1, 323) and ENTITY.IS_ENTITY_PLAYING_ANIM(PLAYER.PLAYER_PED_ID(), "random@mugging3", "handsup_standing_base", 3) then
-            TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
+            TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
+            -- TASK.CLEAR_PED_SECONDARY_TASK(PLAYER.PLAYER_PED_ID())
             PED.SET_ENABLE_HANDCUFFS(PLAYER.PLAYER_PED_ID(), false)
         end
     end
