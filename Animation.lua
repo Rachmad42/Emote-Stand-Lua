@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.0"
+local SCRIPT_VERSION = "1.4.1"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -24,18 +24,18 @@ end
 if auto_updater == true then error("Invalid auto-updater lib. Please delete your Stand/Lua Scripts/lib/auto-updater.lua and try again") end
 
 -- Run auto-update
-auto_updater.run_auto_update({
+local auto_update_config = {
     source_url="https://raw.githubusercontent.com/Rachmad42/Emote-Stand-Lua/main/Animation.lua",
-    script_relpath=SCRIPT_RELPATH,
-    check_interval = 0
-})
+    script_relpath=SCRIPT_RELPATH
+}
+auto_updater.run_auto_update(auto_update_config)
 
 util.require_natives(1676318796)
 local Animation = {}
 
 
 -- Original code for fivem https://github.com/andristum/dpemotes & https://github.com/TayMcKenzieNZ/rpemotes
--- Modified by Rachmad#7992
+-- Modified by Rachmad#7992 wdwd
 
 
 Animation.Dances = {
@@ -14786,6 +14786,23 @@ for k,v in spairs(prop_list, function(t, a, b) return t[b][3] end) do
     end, v.Use)
     util.yield()
 end
+
+-- Manually check for updates with a menu option
+menu.action(OptMisc, "Check for Update", {}, "The script will automatically check for updates at most daily, but you can manually check using this option anytime.", function()
+    auto_update_config.check_interval = 0
+    util.toast("Checking for updates")
+    auto_updater.run_auto_update(auto_update_config)
+end)
+
+
+
+
+
+
+
+
+
+
 
 players.on_join(function(pid)
     if pid == players.user() then
