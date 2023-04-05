@@ -28,6 +28,7 @@ local auto_update_config = {
     source_url="https://raw.githubusercontent.com/Rachmad42/Emote-Stand-Lua/main/Animation.lua",
     script_relpath=SCRIPT_RELPATH
 }
+
 auto_updater.run_auto_update(auto_update_config)
 
 util.require_natives(1676318796)
