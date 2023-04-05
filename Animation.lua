@@ -27,7 +27,7 @@ if auto_updater == true then error("Invalid auto-updater lib. Please delete your
 auto_updater.run_auto_update({
     source_url="https://raw.githubusercontent.com/Rachmad42/Emote-Stand-Lua/main/Animation.lua",
     script_relpath=SCRIPT_RELPATH,
-    verify_file_begins_with="--"
+    check_interval = 0
 })
 
 util.require_natives(1676318796)
