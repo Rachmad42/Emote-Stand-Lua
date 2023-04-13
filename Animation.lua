@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.1"
+local SCRIPT_VERSION = "1.4.2"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -31,12 +31,12 @@ local auto_update_config = {
 
 auto_updater.run_auto_update(auto_update_config)
 
-util.require_natives(1676318796)
+util.require_natives(1651208000)
 local Animation = {}
 
 
 -- Original code for fivem https://github.com/andristum/dpemotes & https://github.com/TayMcKenzieNZ/rpemotes
--- Modified by Rachmad#7992 wdwd
+-- Modified by Rachmad#7992
 
 
 Animation.Dances = {
@@ -14476,7 +14476,10 @@ local PtfxNoProp = false
 local AnimationThreadStatus = false
 local CanCancel = true
 local InExitEmote = false
-IsInAnimation = false
+local IsInAnimation = false
+local isCrouched = false
+local isHansUp = false
+
 
 --function
 
@@ -14666,7 +14669,8 @@ end
 
 
 end
-local function stopAnimation()
+
+function stopAnimation()
     if IsInAnimation then
         if #PlayerParticles > 0 then ptfxStop() end
         TASK.CLEAR_PED_TASKS(PLAYER.PLAYER_PED_ID())
@@ -14678,8 +14682,11 @@ local function stopAnimation()
     PtfxPrompt = false
 end
 
+function IsPlayerAiming(player)
+    return PLAYER.IS_PLAYER_FREE_AIMING(player) or CAM.IS_AIM_CAM_ACTIVE() or CAM._IS_AIM_CAM_THIRD_PERSON_ACTIVE()
+end
 
-local function spairs(t, order)
+function spairs(t, order)
     local keys = {}
     for k in pairs(t) do keys[#keys+1] = k end
 
@@ -14698,6 +14705,13 @@ local function spairs(t, order)
     end
 end
 --
+
+
+
+
+
+
+
 
 
 
@@ -14766,13 +14780,34 @@ OptMisc = menu.list(menu.my_root(), "Misc", {}, "", function(); end)
 menu.action(OptMisc, "Stop Emote", {'estop'}, "", function(on_click)
     stopAnimation()
 end)
+
 menu.action(OptMisc, "Force Stop Emote", {'efstop'}, "", function(on_click)
     TASK.CLEAR_PED_TASKS_IMMEDIATELY(PLAYER.PLAYER_PED_ID())
 end)
+
 local X_HandsUp = true
 menu.toggle(OptMisc, "Hold X to Handsup", {}, "hold X to handsup, this will also stop running animation", function (on_change)
     if on_change then X_HandsUp = true else X_HandsUp = false end
 end, X_HandsUp)
+
+menu.toggle(OptMisc, "Crouch", {}, "", function (on_change)
+    if on_change then
+        STREAMING.REQUEST_ANIM_SET("move_ped_crouched")
+        while not STREAMING.HAS_ANIM_SET_LOADED("move_ped_crouched") do 
+            util.yield()
+        end
+
+        PED.SET_PED_USING_ACTION_MODE(PLAYER.PLAYER_PED_ID(), false, -1, "DEFAULT_ACTION")
+        PED.SET_PED_MOVEMENT_CLIPSET(PLAYER.PLAYER_PED_ID(), "move_ped_crouched", 0.5)
+        PED.SET_PED_STRAFE_CLIPSET(PLAYER.PLAYER_PED_ID(), "move_ped_crouched_strafing")
+        isCrouched = true
+    else
+        PED.RESET_PED_MOVEMENT_CLIPSET(PLAYER.PLAYER_PED_ID(), 0.5)
+        PED.RESET_PED_STRAFE_CLIPSET(PLAYER.PLAYER_PED_ID())
+        STREAMING.REMOVE_ANIM_SET("move_ped_crouched")
+        isCrouched = false
+    end
+end, isCrouched)
 
 OptProp = menu.list(OptMisc, "Prop", {}, "", function(); end)
 for k,v in spairs(prop_list, function(t, a, b) return t[b][3] end) do
@@ -14854,5 +14889,17 @@ while true do
             stopAnimation()
         end
     end
+
+    -- crouch
+    if isCrouched then
+        if IsPlayerAiming(PLAYER.PLAYER_PED_ID()) then
+            -- limiting movement when aiming
+            PED.SET_PED_MAX_MOVE_BLEND_RATIO(PLAYER.PLAYER_PED_ID(), 0.2)
+        end
+        -- stay crouched 
+        -- idk it doesn't work when characters punch :/
+        PED.SET_PED_USING_ACTION_MODE(PLAYER.PLAYER_PED_ID(), false, -1, "DEFAULT_ACTION")
+    end
+
     util.yield()
 end
