@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.2"
+local SCRIPT_VERSION = "1.4.3"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -29,7 +29,7 @@ local auto_update_config = {
     script_relpath=SCRIPT_RELPATH
 }
 
-auto_updater.run_auto_update(auto_update_config)
+-- auto_updater.run_auto_update(auto_update_config)
 
 util.require_natives(1651208000)
 local Animation = {}
@@ -14516,7 +14516,7 @@ local function addProps(model, bone, off1, off2, off3, rot1, rot2, rot3, localSa
     end
     playerCoord.z = playerCoord.z+0.2
     local prop = entities.create_object(model, playerCoord)
-    ENTITY.ATTACH_ENTITY_TO_ENTITY(prop, playerPed, PED.GET_PED_BONE_INDEX(playerPed, bone), off1, off2, off3, rot1, rot2, rot3, true, true, false, true, 1, true)
+    ENTITY.ATTACH_ENTITY_TO_ENTITY(prop, playerPed, PED.GET_PED_BONE_INDEX(playerPed, bone), off1 or 0.0, off2 or 0.0, off3 or 0.0, rot1 or 0.0, rot2 or 0.0, rot3 or 0.0, true, true, false, true, 1, true)
     table.insert(localSave, prop)
     STREAMING.SET_MODEL_AS_NO_LONGER_NEEDED(model)
     PlayerHasProp = true
