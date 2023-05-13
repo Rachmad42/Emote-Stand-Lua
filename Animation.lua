@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.3"
+local SCRIPT_VERSION = "1.4.4"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -977,30 +977,194 @@ Animation.Dances = {
             EmoteLoop = true
         }
     },
-    ["dancehiphop"] = {
-        "anim@amb@nightclub@mini@dance@dance_paired@dance_d@",
-        "ped_a_dance_idle",
-        "Hip Hop Dance ",
-        AnimationOptions = {
-            EmoteLoop = true
-        }
-    },
-    ["dancehiphop2"] = {
-        "anim@amb@nightclub@mini@dance@dance_paired@dance_b@",
-        "ped_a_dance_idle",
-        "Hip Hop Dance 2 ",
-        AnimationOptions = {
-            EmoteLoop = true
-        }
-    },
-    ["dancehiphop3"] = {
+    
+
+
+
+
+
+    
+    ["Duo dance A-A"] = {
         "anim@amb@nightclub@mini@dance@dance_paired@dance_a@",
         "ped_a_dance_idle",
-        "Hip Hop Dance 3 ",
+        "Duo dance A-A",
         AnimationOptions = {
             EmoteLoop = true
         }
     },
+        ["Duo dance A-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_a@",
+        "ped_b_dance_idle",
+        "Duo dance A-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance B-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_b@",
+        "ped_a_dance_idle",
+        "Duo dance B-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance B-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_b@",
+        "ped_b_dance_idle",
+        "Duo dance B-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance D-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_d@",
+        "ped_a_dance_idle",
+        "Duo dance D-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance D-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_d@",
+        "ped_b_dance_idle",
+        "Duo dance D-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance E-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_e@",
+        "ped_a_dance_idle",
+        "Duo dance E-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance E-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_e@",
+        "ped_b_dance_idle",
+        "Duo dance E-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance F-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_f@",
+        "ped_a_dance_idle",
+        "Duo dance F-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance F-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_f@",
+        "ped_b_dance_idle",
+        "Duo dance F-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance H-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_h@",
+        "ped_a_dance_idle",
+        "Duo dance H-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance H-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_h@",
+        "ped_b_dance_idle",
+        "Duo dance H-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance J-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_j@",
+        "ped_a_dance_idle",
+        "Duo dance J-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance J-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_j@",
+        "ped_b_dance_idle",
+        "Duo dance J-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance K-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_k@",
+        "ped_a_dance_idle",
+        "Duo dance K-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance K-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_k@",
+        "ped_b_dance_idle",
+        "Duo dance K-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance L-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_l@",
+        "ped_a_dance_idle",
+        "Duo dance L-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance L-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_l@",
+        "ped_b_dance_idle",
+        "Duo dance L-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+        ["Duo dance M-A"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_m@",
+        "ped_a_dance_idle",
+        "Duo dance M-A",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+        ["Duo dance M-B"] = {
+        "anim@amb@nightclub@mini@dance@dance_paired@dance_m@",
+        "ped_b_dance_idle",
+        "Duo dance M-B",
+        AnimationOptions = {
+            EmoteLoop = true
+        }
+    },
+
+    
+    
     ["dancepride"] = {
         "anim@amb@nightclub@lazlow@hi_railing@",
         "ambclub_09_mi_hi_bellydancer_laz",
