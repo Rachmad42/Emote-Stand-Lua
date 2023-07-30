@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.3"
+local SCRIPT_VERSION = "1.4.4"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -14790,7 +14790,7 @@ menu.toggle(OptMisc, "Hold X to Handsup", {}, "hold X to handsup, this will also
     if on_change then X_HandsUp = true else X_HandsUp = false end
 end, X_HandsUp)
 
-menu.toggle(OptMisc, "Crouch", {}, "", function (on_change)
+menu.toggle(OptMisc, "Crouch", {'crouch'}, "", function (on_change)
     if on_change then
         STREAMING.REQUEST_ANIM_SET("move_ped_crouched")
         while not STREAMING.HAS_ANIM_SET_LOADED("move_ped_crouched") do 
