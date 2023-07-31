@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "1.4.4"
+local SCRIPT_VERSION = "1.4.5"
 
 -- Auto Updater from https://github.com/hexarobi/stand-lua-auto-updater
 local status, auto_updater = pcall(require, "auto-updater")
@@ -14595,7 +14595,7 @@ function ptfxStart(animData)
         entityTarget = PlayerProps[1]
     end
     streamPtfx(PtfxAsset)
-    Ptfx = GRAPHICS.START_NETWORKED_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(PtfxName, entityTarget, Ptfx1, Ptfx2, Ptfx3, Ptfx4, Ptfx5, Ptfx6+180, PtfxBone, PtfxScale + 0.0, 0, 0, 0, 1065353216, 1065353216, 1065353216, 0)
+    Ptfx = GRAPHICS.START_NETWORKED_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(PtfxName, entityTarget, Ptfx1, Ptfx2, Ptfx3, Ptfx4, Ptfx5, Ptfx6, PtfxBone, PtfxScale + 0.0, 0, 0, 0, 1065353216, 1065353216, 1065353216, 0)
     table.insert(PlayerParticles, Ptfx)
 end
 
